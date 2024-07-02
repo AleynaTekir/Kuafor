@@ -1,0 +1,155 @@
+﻿
+@model List<Kuafor.Kuaför>
+@{
+    ViewBag.Title = "KuaförList";
+    Layout = "~/Views/Shared/Layoutmusteri.cshtml";
+}
+<script src="~/Scripts/jquery-1.8.0.js"></script>
+
+<body style="background-color:lightgrey"
+
+    <form class="form-inline">
+    </form>
+    </div>
+    </nav>
+    <form method="post">
+        <div>
+          
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $("#SehirID").change(function () {
+                        var id = $(this).val();
+                        var ilceList = $("#IlceID");
+                        $.ajax({
+                            url: '/Home/KuaförList',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: { 'id': id },
+                            success: function (data) {
+                                $.each(data, function (index, option) {
+                                    ilceList.append('<option value=' + option.Value + ' >' + option.Text + ' </option>');
+                                });
+                            }
+
+
+
+                        });
+                    });
+                });
+                $(document).ready(function () {
+                    $("#IlceID").change(function () {
+                        var id = $(this).val();
+                        var ilceList = $("#IlceID");
+                        $.ajax({
+                            url: '/Home/Ilce',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: { 'id': id },
+                            success: function (data) {
+                                $.each(data, function (index, option) {
+                                    ilceList.append('<option value=' + option.Value + ' >' + option.Text + ' </option>');
+                                });
+                            }
+
+
+
+                        });
+                    });
+                });
+
+
+
+
+            </script>
+
+
+            @*@using (Html.BeginForm("KuaförList", "Home", FormMethod.Post))
+            {
+                //Html.DropDownList("DrpSehir", Model.SehirList, "---------Şehir seçin---------", new { @class = "form-control" })
+                @Html.DropDownListFor(m=>m.Item1.SehirID, Model.Item1.IlceList, new { @class = "form-control" })
+                <br />
+                @Html.DropDownListFor(m => m.Item1.IlceID, Model.Item1.IlceList, new { @class = "form-control" })
+
+                @ViewBag.mesaj;
+
+            }*@
+
+            @*@Html.Label("İLLER")
+        @Html.DropDownList("DrpSehir", Model.Item1.Sehirler, "---------Şehir seçin---------", new { class = "form-control" });
+        </br>
+        @Html.Label("İLÇELER")
+        @Html.DropDownList("Drplce", Model.İlceler, "---------İlçe seçin---------", new { class = "form-control" });*@
+        </div>
+            <div style="font-size: 15px; color:gray; margin-top: 5px; " class="input-box10">
+                <i style="color: aliceblue; margin-left:10px;" class="fa-solid fa-magnifying-glass"></i>
+                <input style="background-color: white;" type="text" name="işlem" placeholder="  Bulunduğunuz ili giriniz" required>
+                <button href="MusteriEkle" style="margin-left:5px; color:aliceblue; background-color: #655280" type="submit" class="btn">Ara</button>
+            </div>
+
+
+        </form>
+        <div class="row">
+@foreach (var kuaför in Model)
+            {
+
+                <div class="col-md-4">
+                    <div style="border: 15px solid rgba(255, 255, 255, .5); border-radius: 35px; margin-top: 30px; margin-left: 30px; margin-right: 30px;" class="card">
+                        <img style="margin-left:50px; width: 250px; height: 250px; border: 15px solid rgba(255, 255, 255, .5); border-radius: 115px; " src="~/kuaför/image/Güzellik Salonu.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><a style="color:black;" href="/Home/Kuafördetay/@kuaför.ID">@kuaför.AD</a></h5>
+                            <div><h6><i style="color: #534369; margin-right: 10px;" class="fa-solid fa-location-dot"></i>@kuaför.Adres</h6></div>
+                            @for (var i = 1; i <= @kuaför.puan; i++)
+                            {
+
+                                <i style="color:yellow;" class="fa-solid fa-star"></i>
+                            }
+
+
+                            @for (var j = 1; j <= 5 - @kuaför.puan; j++)
+                            {
+
+                                <i style="color:silver;" class="fa-solid fa-star"></i>
+
+                            }
+                            (kuaför.puan)
+                            for (var i = 1; i <= Math.Round(((double)@kuaför.puan)); i++)
+                            {
+
+                                <i style="color:yellow;" class="fa-solid fa-star"></i>
+                            }
+
+
+                            for (var j = 1; j <= Math.Round(((double)(5 - @kuaför.puan))); j++)
+                            {
+
+                                <i style="color:silver;" class="fa-solid fa-star"></i>
+
+                            }
+
+
+            <i style="color:darkorange;" class="fa-solid fa-star"></i>
+            <i style="color:darkorange;" class="fa-solid fa-star"></i>
+            <i style="color:darkorange;" class="fa-solid fa-star"></i>
+            <i style="color:darkorange;" class="fa-solid fa-star"></i>
+            <i style="color:darkorange;" class="fa-solid fa-star-half"></i>}
+        </div>
+
+        <div class="card-footer">
+            <small class="text-muted">iletişim:@kuaför.Telefon_numarası</small><br>
+            <small class="text-muted">@kuaför.Eposta</small>
+        </div>
+        </div>
+        </div>
+            }
+        </div>
+
+
+
+
+
+
+
+
+        
