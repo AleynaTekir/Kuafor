@@ -1,0 +1,1 @@
+VeriTabanı Kuaför.bak dosyasındadır.
